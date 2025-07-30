@@ -3,68 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>one finance</title>
+    <title>One Finance - FIRE Tracking Dashboard</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="A modern web application built with vanilla HTML, CSS, and JavaScript">
-    <meta name="keywords" content="web app, html, css, javascript, modern design">
+    <meta name="description" content="Track your journey to Financial Independence Retire Early (FIRE) with comprehensive budgeting, analytics, and goal management">
+    <meta name="keywords" content="FIRE, financial independence, budgeting, finance tracking, retirement planning">
     <meta name="author" content="">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="one finance">
-    <meta property="og:description" content="A modern web application built with vanilla HTML, CSS, and JavaScript">
+    <meta property="og:title" content="One Finance - FIRE Tracking Dashboard">
+    <meta property="og:description" content="Track your journey to Financial Independence Retire Early (FIRE)">
     <meta property="og:type" content="website">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
-    
-
 </head>
 <body class="app-layout">
-    <div class="container">
-        <header class="header">
-            <h1>one finance</h1>
-            <p>A modern web application built with vanilla HTML, CSS, and JavaScript</p>
-
-        </header>
-        
-        <main class="main-content">
-            <div class="controls">
-                <div class="control-group">
-                    <h3 style="color: var(--moss); margin-bottom: var(--space-md);">Quick Start</h3>
-                    <p>Your app is ready to go! Edit the content in <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.4rem; border-radius: 4px;">index.html</code> to build your application.</p>
-                    <button class="btn btn-primary" onclick="showNotification('Hello World!', 'success')">
-                        Test Notification
-                    </button>
-                </div>
-                
-                <div class="control-group">
-                    <h3 style="color: var(--moss); margin-bottom: var(--space-md);">Features</h3>
-                    <ul style="margin-left: 1.5rem;">
-                        <li>Modern CSS with CSS variables</li>
-                        <li>Responsive design</li>
-                        <li>Glass morphism effects</li>
-                        <li>Utility JavaScript functions</li>
-
-
-                    </ul>
-                </div>
+    <!-- Auth Container (shown when not logged in) -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 style="background: linear-gradient(135deg, var(--moss), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">One Finance</h1>
+                <p>Track your FIRE journey with comprehensive financial analytics</p>
             </div>
             
-            <div style="text-align: center; margin-top: var(--space-xl);">
-                <h2 style="color: var(--amber); margin-bottom: var(--space-lg);">Ready to Build Something Amazing?</h2>
-                <p style="color: var(--muted-gray); margin-bottom: var(--space-lg);">
-                    This template gives you everything you need to create a modern web application.
-                </p>
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <h2>Welcome Back</h2>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up</a></p>
+            </form>
+            
+            <!-- Registration Form -->
+            <form id="register-form" class="auth-form" style="display: none;">
+                <h2>Create Account</h2>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="register-birth-year">Birth Year (Optional)</label>
+                    <input type="number" id="register-birth-year" min="1900" max="2020">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="toggleAuthMode()">Sign in</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Container (shown when logged in) -->
+    <div id="app-container" class="container" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navigation">
+            <div class="nav-brand">
+                <h1 style="background: linear-gradient(135deg, var(--moss), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">One Finance</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('dashboard')" class="nav-link active">Dashboard</a></li>
+                <li><a href="#" onclick="showPage('transactions')" class="nav-link">Transactions</a></li>
+                <li><a href="#" onclick="showPage('analytics')" class="nav-link">Analytics</a></li>
+                <li><a href="#" onclick="showPage('goals')" class="nav-link">Goals</a></li>
+                <li><a href="#" onclick="showPage('settings')" class="nav-link">Settings</a></li>
+            </ul>
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </nav>
+
+        <!-- Page Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h2>Financial Dashboard</h2>
+                    <p>Your complete FIRE progress overview</p>
+                </div>
+                <div id="dashboard-content"></div>
+            </div>
+
+            <!-- Transactions Page -->
+            <div id="transactions-page" class="page">
+                <div class="page-header">
+                    <h2>Transactions</h2>
+                    <div class="page-actions">
+                        <input type="file" id="csv-file" accept=".csv" style="display: none;" onchange="handleCsvUpload()">
+                        <button class="btn btn-secondary" onclick="document.getElementById('csv-file').click()">Import CSV</button>
+                        <button class="btn btn-primary" onclick="showAddTransactionModal()">Add Transaction</button>
+                    </div>
+                </div>
+                <div id="transactions-content"></div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div id="analytics-page" class="page">
+                <div class="page-header">
+                    <h2>Analytics & FIRE</h2>
+                    <p>Detailed insights into your financial progress</p>
+                </div>
+                <div id="analytics-content"></div>
+            </div>
+
+            <!-- Goals Page -->
+            <div id="goals-page" class="page">
+                <div class="page-header">
+                    <h2>Financial Goals</h2>
+                    <button class="btn btn-primary" onclick="showAddGoalModal()">Add Goal</button>
+                </div>
+                <div id="goals-content"></div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings-page" class="page">
+                <div class="page-header">
+                    <h2>Settings</h2>
+                    <p>Manage your accounts and FIRE parameters</p>
+                </div>
+                <div id="settings-content"></div>
             </div>
         </main>
-
     </div>
-    
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
     <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/transactions.js"></script>
+    <script src="assets/js/analytics.js"></script>
+    <script src="assets/js/goals.js"></script>
+    <script src="assets/js/settings.js"></script>
 </body>
 </html>

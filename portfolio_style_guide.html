@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Style Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --charcoal: #0D1B2A;
+            --midnight: #1B263B;
+            --slate: #415A77;
+            --pine: #2E8B57;
+            --moss: #4C9A2A;
+            --amber: #D87C2A;
+            --flame: #FF6B35;
+            
+            /* Extended Colors */
+            --deep-navy: #0A1628;
+            --soft-white: #F8F9FA;
+            --warm-white: #FFF8F0;
+            --muted-gray: #6C757D;
+            --accent-blue: #4A90E2;
+            --success-green: #28A745;
+            --warning-orange: #FD7E14;
+            --error-red: #DC3545;
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
+            --font-serif: 'Crimson Text', Georgia, serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--midnight) 100%);
+            color: var(--soft-white);
+            margin: 0;
+            padding: var(--space-xl);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: rgba(27, 38, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            background: linear-gradient(135deg, var(--flame), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--amber);
+            border-bottom: 2px solid var(--slate);
+            padding-bottom: var(--space-sm);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: var(--space-md);
+            color: var(--moss);
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .color-swatch {
+            text-align: center;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .color-preview {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-info {
+            background: var(--midnight);
+            padding: var(--space-md);
+        }
+        
+        .color-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .color-hex {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--muted-gray);
+        }
+        
+        /* Button Styles */
+        .button-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            border: none;
+            font-family: var(--font-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--flame), var(--amber));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .btn-secondary {
+            background: var(--slate);
+            color: var(--soft-white);
+            border: 1px solid var(--pine);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--pine);
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--amber);
+            border: 2px solid var(--amber);
+        }
+        
+        .btn-outline:hover {
+            background: var(--amber);
+            color: var(--charcoal);
+        }
+        
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--soft-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Typography Examples */
+        .typography-example {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .font-primary {
+            font-family: var(--font-primary);
+        }
+        
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+        
+        .font-serif {
+            font-family: var(--font-serif);
+        }
+        
+        .text-sizes {
+            display: grid;
+            gap: var(--space-md);
+        }
+        
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        
+        /* Cards */
+        .card {
+            background: rgba(27, 38, 59, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card-title {
+            color: var(--amber);
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            background: var(--charcoal);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            overflow-x: auto;
+            border: 1px solid var(--slate);
+        }
+        
+        .code-inline {
+            background: rgba(13, 27, 42, 0.8);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--moss);
+        }
+        
+        /* Navigation */
+        .nav-example {
+            display: flex;
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+            background: rgba(13, 27, 42, 0.8);
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-link {
+            color: var(--soft-white);
+            text-decoration: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--flame);
+        }
+        
+        .nav-link.active {
+            background: var(--pine);
+            color: white;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            color: var(--moss);
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(27, 38, 59, 0.8);
+            border: 1px solid var(--slate);
+            border-radius: var(--radius-md);
+            color: var(--soft-white);
+            font-family: var(--font-primary);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--amber);
+            box-shadow: 0 0 0 3px rgba(216, 124, 42, 0.2);
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-muted { color: var(--muted-gray); }
+        .text-accent { color: var(--amber); }
+        .bg-card { background: rgba(27, 38, 59, 0.6); }
+        .rounded { border-radius: var(--radius-md); }
+        .shadow { box-shadow: var(--shadow-md); }
+        
+        .grid {
+            display: grid;
+            gap: var(--space-md);
+        }
+        
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-showcase {
+                flex-direction: column;
+            }
+            
+            .nav-example {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Style Guide</h1>
+        
+        <div class="section">
+            <h2>Color Palette</h2>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #0D1B2A;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Charcoal</div>
+                        <div class="color-hex">#0D1B2A</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #1B263B;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Midnight</div>
+                        <div class="color-hex">#1B263B</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #415A77;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Slate</div>
+                        <div class="color-hex">#415A77</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #2E8B57;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Pine</div>
+                        <div class="color-hex">#2E8B57</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #4C9A2A;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Moss</div>
+                        <div class="color-hex">#4C9A2A</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #D87C2A;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Amber</div>
+                        <div class="color-hex">#D87C2A</div>
+                    </div>
+                </div>
+                
+                <div class="color-swatch">
+                    <div class="color-preview" style="background-color: #FF6B35;">
+                        <span style="color: white; font-weight: bold;">Aa</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">Flame</div>
+                        <div class="color-hex">#FF6B35</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Typography</h2>
+            
+            <div class="typography-example">
+                <h3>Font Families</h3>
+                <div class="grid grid-3">
+                    <div>
+                        <h4 class="font-primary text-accent">Inter (Primary)</h4>
+                        <p class="font-primary">Clean, modern sans-serif for body text, UI elements, and general content. Professional and highly readable.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-mono text-accent">JetBrains Mono</h4>
+                        <p class="font-mono">Monospace font for code blocks, technical content, and data display. Developer-focused with excellent readability.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-accent">Crimson Text</h4>
+                        <p class="font-serif">Elegant serif for blog posts, articles, and longer form content. Adds warmth and readability to prose.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="typography-example">
+                <h3>Text Sizes</h3>
+                <div class="text-sizes">
+                    <div class="text-xs text-muted">Extra Small (0.75rem) - Captions, footnotes</div>
+                    <div class="text-sm text-muted">Small (0.875rem) - Secondary text, metadata</div>
+                    <div class="text-base">Base (1rem) - Body text, standard content</div>
+                    <div class="text-lg">Large (1.125rem) - Emphasis, lead paragraphs</div>
+                    <div class="text-xl text-accent">Extra Large (1.25rem) - Subheadings</div>
+                    <div class="text-2xl text-accent">2XL (1.5rem) - Section headers</div>
+                    <div class="text-3xl text-accent">3XL (1.875rem) - Page titles</div>
+                    <div class="text-4xl text-accent">4XL (2.25rem) - Hero headings</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Buttons</h2>
+            <div class="button-showcase">
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-outline">Outline</button>
+                <button class="btn btn-ghost">Ghost</button>
+            </div>
+            
+            <h3>Usage Guidelines</h3>
+            <ul>
+                <li><strong>Primary:</strong> Main CTAs, important actions (Deploy, Publish, Save)</li>
+                <li><strong>Secondary:</strong> Supporting actions (Edit, View, Cancel)</li>
+                <li><strong>Outline:</strong> Tertiary actions, toggles</li>
+                <li><strong>Ghost:</strong> Subtle actions, navigation elements</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Navigation</h2>
+            <nav class="nav-example">
+                <a href="#" class="nav-link active">Projects</a>
+                <a href="#" class="nav-link">Blog</a>
+                <a href="#" class="nav-link">Garden</a>
+                <a href="#" class="nav-link">Fitness</a>
+                <a href="#" class="nav-link">About</a>
+            </nav>
+        </div>
+        
+        <div class="section">
+            <h2>Cards & Content</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Project Card</h3>
+                    <p>A brief description of the project, technologies used, and key outcomes. Perfect for portfolio showcases.</p>
+                    <div style="margin-top: var(--space-md);">
+                        <span class="code-inline">React</span>
+                        <span class="code-inline">Node.js</span>
+                        <span class="code-inline">PostgreSQL</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Blog Post</h3>
+                    <p class="text-muted text-sm">January 15, 2024</p>
+                    <p>Working in public: Building a distributed task queue. Today I'm exploring different approaches to...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Code & Technical Content</h2>
+            <div class="code-block">
+<span style="color: #4C9A2A;">const</span> <span style="color: #D87C2A;">buildPortfolio</span> = <span style="color: #FF6B35;">async</span> () => {
+  <span style="color: #4C9A2A;">const</span> <span style="color: #415A77;">projects</span> = <span style="color: #4C9A2A;">await</span> <span style="color: #D87C2A;">fetchProjects</span>();
+  <span style="color: #4C9A2A;">return</span> <span style="color: #415A77;">projects</span>.<span style="color: #D87C2A;">map</span>(<span style="color: #415A77;">project</span> => ({
+    ...<span style="color: #415A77;">project</span>,
+    <span style="color: #2E8B57;">showcase</span>: <span style="color: #4C9A2A;">true</span>
+  }));
+};
+            </div>
+            
+            <p style="margin-top: var(--space-lg);">
+                Use <span class="code-inline">inline code</span> for short snippets, variables, or technical terms within paragraphs.
+            </p>
+        </div>
+        
+        <div class="section">
+            <h2>Forms</h2>
+            <div style="max-width: 400px;">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea id="message" class="form-input" rows="4" placeholder="Tell me about your project..."></textarea>
+                </div>
+                
+                <button class="btn btn-primary">Send Message</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Design Principles</h2>
+            <div class="grid grid-2">
+                <div>
+                    <h3>Visual Hierarchy</h3>
+                    <ul>
+                        <li>Use gradient text for main headings</li>
+                        <li>Amber (#D87C2A) for section headings</li>
+                        <li>Moss (#4C9A2A) for subheadings</li>
+                        <li>Muted gray for secondary information</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Spacing & Layout</h3>
+                    <ul>
+                        <li>Consistent 8px grid system</li>
+                        <li>Generous whitespace for readability</li>
+                        <li>Card-based layouts for content organization</li>
+                        <li>Responsive grid systems</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Interaction Design</h3>
+                    <ul>
+                        <li>Subtle hover animations (translateY, glow effects)</li>
+                        <li>Glass morphism with backdrop blur</li>
+                        <li>Focus states with amber accent rings</li>
+                        <li>Smooth 0.3s transitions</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Content Tone</h3>
+                    <ul>
+                        <li>Professional yet approachable</li>
+                        <li>Technical without being intimidating</li>
+                        <li>Outdoor/nature-inspired metaphors</li>
+                        <li>Growth and learning mindset</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
